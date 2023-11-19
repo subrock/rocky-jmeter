@@ -7,11 +7,7 @@ services:
     build:
       dockerfile: Dockerfile.c
     restart: unless-stopped
-    ports:
-      - "9000:80"
     command: "/bin/bash"
-    volumes:
-      - './scripts:/usr/local/jmeter/scripts:rw'
 
   jmworker-1:
     tty: true
