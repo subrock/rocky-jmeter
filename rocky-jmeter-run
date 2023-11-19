@@ -1,0 +1,9 @@
+#!/bin/sh
+
+export PATH="$PATH:/opt/jmeter/bin"
+
+if [ $1 ] ; then
+echo $1
+/usr/local/bin/jmeter -n -t $1 -r -l /tmp/$1.csv
+
+fi

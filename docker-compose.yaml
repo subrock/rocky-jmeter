@@ -1,0 +1,27 @@
+version: "3"
+services:
+  jmcontroller:
+    tty: true
+    container_name: CONTROLLER
+    hostname: CONTROLLER
+    build:
+      dockerfile: Dockerfile.c
+    restart: unless-stopped
+    ports:
+      - "9000:80"
+    command: "/bin/bash"
+    volumes:
+      - './scripts:/usr/local/jmeter/scripts:rw'
+
+  jmworker-1:
+    tty: true
+    container_name: WORKER-1
+    hostname: WORKER-1
+    build:
+      dockerfile: Dockerfile.w
+    restart: unless-stopped
+    ports:
+      - "1099:1099"
+    command: "/bin/bash"
+
+
