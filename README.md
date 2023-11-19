@@ -6,7 +6,7 @@ To add more WORKER nodes modify your jmeter.properties remote_hosts.
 ```
 docker network create --driver bridge rocky-jmeter-network
 docker run --name CONTROLLER --hostname CONTROLLER --network rocky-jmeter-network -d -t subrock/rocky-jmeter:controller
-docker run --name WORKER-1 --hostname WORKER-1 --network rocky-jmeter-network -d -t -p 1099:1099 subrock/rocky-jmeter:worker
+docker run --name WORKER-1 --hostname WORKER-1 --network rocky-jmeter-network -d -t subrock/rocky-jmeter:worker
 ```
 
 ## Compose
@@ -32,3 +32,53 @@ For example you can use a simple JMX script already present on the CONTROLLER to
 ```
 docker exec -it CONTROLLER /usr/local/bin/rocky-jmeter-run install_test_script.jmx
 ```
+## Scaling WORKER nodes
+### RUN
+```
+docker network create --driver bridge rocky-jmeter-network
+docker run --name CONTROLLER --hostname CONTROLLER --network rocky-jmeter-network -d -t subrock/rocky-jmeter:controller
+docker run --name WORKER-1 --hostname WORKER-1 --network rocky-jmeter-network -d -t subrock/rocky-jmeter:worker
+docker run --name WORKER-2 --hostname WORKER-2 --network rocky-jmeter-network -d -t subrock/rocky-jmeter:worker
+```
+Modify /usr/local/bin/jmeter.properties remote_hosts value. ex;
+```
+remote_hosts=WORKER-1, WORKER-2
+```
+### Compose
+You can scale both the base image and latest images via compose. Here we create a docker-compose.yaml without a Docker file. 
+```
+version: "3"
+services:
+  controller:
+    tty: true
+    container_name: CONTROLLER
+    hostname: CONTROLLER
+    image: subrock/rocky-jmeter:controller
+    restart: unless-stopped
+    command: "/bin/bash"
+
+  worker-1:
+    tty: true
+    container_name: WORKER-1
+    hostname: WORKER-1
+    image: subrock/rocky-jmeter:worker
+    restart: unless-stopped
+    command: "/bin/bash"
+
+  worker-2:
+    tty: true
+    container_name: WORKER-2
+    hostname: WORKER-2
+    image: subrock/rocky-jmeter:worker
+    restart: unless-stopped
+    command: "/bin/bash"
+```
+Then we build it. 
+```
+docker compose build
+docker compose up
+docker compose up -d
+```
+Now you should see multiple WORKER nodes running. Next step is to modify jmeter.properties as above.
+## Special Note
+If you wanted to connect remotely from a client install of Jmeter you will need to expose port **1099** on the WORKER nodes. For example WORKER-1 = 1099:1099, WORKER-2 = 1100, 1099, etc. Ensure /usr/local/bin/rmi_keystore.jks matches your client.
