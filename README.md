@@ -73,12 +73,12 @@ services:
     restart: unless-stopped
     command: "/bin/bash"
 ```
-Additionally you may want to add volumes to a directory that holds your JMX scripts. Then we build it. 
+Next step is to modify jmeter.properties as above. Additionally you may want to modify **docker-compose.yaml** with volumes to a directory that holds your JMX scripts. Then we build it. 
 ```
 docker compose build
 docker compose up -d
 docker exec -it CONTROLLER /usr/local/bin/rocky-jmeter-run install_test_script.jmx
 ```
-Now you should see multiple WORKER nodes running. Next step is to modify jmeter.properties as above.
+Now you should see multiple WORKER nodes running. 
 ## Special Note
 If you wanted to connect remotely from a client install of Jmeter you will need to expose port **1099** on the WORKER nodes. For example WORKER-1 = 1099:1099, WORKER-2 = 1100, 1099, etc. Ensure /usr/local/bin/rmi_keystore.jks matches your client.
