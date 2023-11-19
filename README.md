@@ -76,8 +76,8 @@ services:
 Then we build it. 
 ```
 docker compose build
-docker compose up
 docker compose up -d
+docker exec -it CONTROLLER /usr/local/bin/rocky-jmeter-run install_test_script.jmx
 ```
 Now you should see multiple WORKER nodes running. Next step is to modify jmeter.properties as above.
 ## Special Note
