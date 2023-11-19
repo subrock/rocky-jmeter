@@ -2,7 +2,6 @@
 Jmeter on top of Rocky Linux 9.
 
 ## Run
-To add more WORKER nodes modify your jmeter.properties remote_hosts. 
 ```
 docker network create --driver bridge rocky-jmeter-network
 docker run --name CONTROLLER --hostname CONTROLLER --network rocky-jmeter-network -d -t subrock/rocky-jmeter:controller
