@@ -9,7 +9,7 @@ docker run --name WORKER-1 --hostname WORKER-1 --network rocky-jmeter-network -d
 ```
 
 ## Compose
-You can build and launch using compose. Create a directory and place Dockerfile, docker-compose.yaml and startup.sh in a directory.
+Using the files from this repo, you can build and launch using compose. Create a directory and place Dockerfile, docker-compose.yaml and startup.sh in a directory.
 ```
 docker compose build
 docker compose up
