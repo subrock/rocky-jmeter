@@ -73,7 +73,7 @@ services:
     restart: unless-stopped
     command: "/bin/bash"
 ```
-Then we build it. 
+Additionally you may want to add volumes to a directory that holds your JMX scripts. Then we build it. 
 ```
 docker compose build
 docker compose up -d
