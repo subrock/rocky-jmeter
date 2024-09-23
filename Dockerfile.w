@@ -6,8 +6,8 @@ LABEL maintainer="Karl Schroeder <karl@subrock.com>"
 RUN yum install -y ca-certificates net-tools java-1.8.0-openjdk iputils nodejs npm which procps chkconfig openssl-devel gcc glibc glibc-common wget unzip httpd php gd gd-devel perl autoconf gettext automake && yum clean all -y
 
 # Install Jmeter
-RUN wget -O apache-jmeter-5.6.2.tgz https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz && tar xzf apache-jmeter-5.6.2.tgz -C /usr/local/
-RUN cp -r /usr/local/apache-jmeter-5.6.2/* /usr/local/
+RUN wget -O apache-jmeter-5.6.3.tgz https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz && tar xzf apache-jmeter-5.6.3.tgz -C /usr/local/
+RUN cp -r /usr/local/apache-jmeter-5.6.3/* /usr/local/
 
 # Jmeter Plugin Install
 COPY post.tgz /tmp/
